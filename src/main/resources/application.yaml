@@ -1,0 +1,22 @@
+server:
+  port: 9090
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          auto-create-topics: false
+          brokers: 127.0.0.1:9092
+        bindings:
+          tickleInput:
+            consumer:
+              startOffset: latest
+      bindings:
+        tickleInput:
+          group: tickle-group
+          destination: com.canseverayberk.tickle
+        tickleOutput:
+          destination: com.canseverayberk.tickle
+  redis:
+    hostname: 127.0.0.1
+    port: 6379

@@ -1,0 +1,26 @@
+server:
+  port: 19090
+spring:
+  cloud:
+    zookeeper:
+      discovery:
+        enabled: true
+      connect-string: 127.0.0.1:2181
+    stream:
+      kafka:
+        binder:
+          auto-create-topics: false
+          brokers: 127.0.0.1:9092
+        bindings:
+          tickleInput:
+            consumer:
+              startOffset: latest
+      bindings:
+        tickleInput:
+          group: tickle-group
+          destination: com.canseverayberk.tickle
+        tickleOutput:
+          destination: com.canseverayberk.tickle
+  redis:
+    hostname: 127.0.0.1
+    port: 6379

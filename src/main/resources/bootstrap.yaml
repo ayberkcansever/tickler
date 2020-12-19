@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    zookeeper:
+      discovery:
+        enabled: true
+      connect-string: 127.0.0.1:2181
