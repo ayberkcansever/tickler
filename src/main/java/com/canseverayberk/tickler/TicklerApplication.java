@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 public class TicklerApplication {
 
-	public static boolean I_AM_LEADER = false;
+    public static boolean I_AM_LEADER = false;
 
-	public static void main(String[] args) {
-		SpringApplication.run(TicklerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TicklerApplication.class, args);
+    }
 
 }
