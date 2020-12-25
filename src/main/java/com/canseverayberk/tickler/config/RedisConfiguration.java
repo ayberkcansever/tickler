@@ -17,9 +17,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfiguration {
 
+    private static final String REDIS_KEY_EVENT_EXPIRED = "__keyevent@*__:expired";
+
     @Bean
     public RedisTemplate<String, Tickle> redisTemplate(RedisConnectionFactory connectionFactory,
-                                                       Jackson2JsonRedisSerializer jackson2JsonRedisSerializer) {
+                                                       Jackson2JsonRedisSerializer<Tickle> jackson2JsonRedisSerializer) {
         RedisTemplate<String, Tickle> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
@@ -31,8 +33,8 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public Jackson2JsonRedisSerializer jackson2JsonRedisSerializer() {
-        Jackson2JsonRedisSerializer serializer = new Jackson2JsonRedisSerializer(Tickle.class);
+    public Jackson2JsonRedisSerializer<Tickle> jackson2JsonRedisSerializer() {
+        Jackson2JsonRedisSerializer<Tickle> serializer = new Jackson2JsonRedisSerializer<>(Tickle.class);
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         serializer.setObjectMapper(objectMapper);
@@ -44,7 +46,7 @@ public class RedisConfiguration {
                                                                         ExpirationListener expirationListener) {
         RedisMessageListenerContainer listenerContainer = new RedisMessageListenerContainer();
         listenerContainer.setConnectionFactory(connectionFactory);
-        listenerContainer.addMessageListener(expirationListener, new PatternTopic("__keyevent@*__:expired"));
+        listenerContainer.addMessageListener(expirationListener, new PatternTopic(REDIS_KEY_EVENT_EXPIRED));
         return listenerContainer;
     }
 

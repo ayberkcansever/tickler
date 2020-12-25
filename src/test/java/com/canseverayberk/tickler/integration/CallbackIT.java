@@ -70,7 +70,7 @@ public class CallbackIT extends AbstractIT {
 
         @Override
         public HttpResponse handle(HttpRequest httpRequest) {
-            actualRequestPayload = httpRequest.getBodyAsString() + "12313";
+            actualRequestPayload = httpRequest.getBodyAsString();
             countDownLatch.countDown();
             return response().withStatusCode(200);
         }

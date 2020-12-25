@@ -9,6 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Tickle {
+
+    public static final String REDIS_VALUE_SUFFIX = "_value";
+
     private String payload;
     private String restCallbackUrl;
     private Integer ttl;

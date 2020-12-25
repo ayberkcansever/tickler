@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static com.canseverayberk.tickler.model.Tickle.REDIS_VALUE_SUFFIX;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -24,7 +26,7 @@ public class TickleController {
     public void tickle(@RequestBody Tickle tickle) {
         String messageUUID = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(messageUUID, tickle, tickle.getTtl(), TimeUnit.SECONDS);
-        redisTemplate.opsForValue().set(messageUUID.concat("_value"), tickle, tickle.getTtl() + 20, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(messageUUID.concat(REDIS_VALUE_SUFFIX), tickle, tickle.getTtl() + 20, TimeUnit.SECONDS);
     }
 
 }

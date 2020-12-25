@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static com.canseverayberk.tickler.model.Tickle.REDIS_VALUE_SUFFIX;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class ExpirationListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] bytes) {
         String key = new String(message.getBody());
-        Tickle expiredTickle = redisTemplate.opsForValue().get(key.concat("_value"));
+        Tickle expiredTickle = redisTemplate.opsForValue().get(key.concat(REDIS_VALUE_SUFFIX));
         if (Objects.nonNull(expiredTickle)) {
             kafkaEventStreams.tickleOutput().send(MessageBuilder.withPayload(expiredTickle).build());
         }
