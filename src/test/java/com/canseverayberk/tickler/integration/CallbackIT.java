@@ -26,7 +26,7 @@ import static org.mockserver.model.HttpResponse.response;
 public class CallbackIT extends AbstractIT {
 
     @Test
-    void should_call_callback_url() throws InterruptedException, JsonProcessingException {
+    void should_call_callback_url_when_tickle_expires() throws InterruptedException, JsonProcessingException {
         // given
         CountDownLatch countDownLatch = new CountDownLatch(1);
         String payload = new ObjectMapper().writeValueAsString(CallbackPayload.builder().id(1L).name("name").build());

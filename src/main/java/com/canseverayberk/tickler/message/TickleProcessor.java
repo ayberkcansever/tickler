@@ -37,6 +37,7 @@ public class TickleProcessor {
                 HttpMethod.POST,
                 new HttpEntity<>(tickle.getPayload(), headers),
                 Void.class);
+        log.info("Callback url called for tickle: {}", tickle);
     }
 
 }
