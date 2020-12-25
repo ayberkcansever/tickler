@@ -3,7 +3,7 @@ Tickler
 -----------------
 Firstly we define the need for Tickler: 
 
-***I am, as a tickle client application, running in distributed environment and need an expiring distributed set which all the items in the set can have different time-to-live values.***
+***I am, as a tickle client application, running in distributed environment and need an expiring distributed data structure which all the items in this structure can have different time-to-live values.***
 
 These expiring items can be called as reminders (tickles) which are composed of a callback url, json payload for the callback and a ttl value in seconds.
 
