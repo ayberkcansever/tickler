@@ -8,7 +8,7 @@ These expiring items can be called as reminders (tickles) which are composed of 
 
 Main components of an sample environment are stated below:
 
-<img src="https://ibb.co/7k6wMqq"/>
+<img src="https://i.ibb.co/bb8Swkk/tickler-1.png"/>
 
 The main flow of the diagram:
 
