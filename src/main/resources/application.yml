@@ -6,7 +6,7 @@ spring:
       kafka:
         binder:
           auto-create-topics: false
-          brokers: 127.0.0.1:9092
+          brokers: ${BROKER_HOST:127.0.0.1}:${BROKER_PORT:9092}
         bindings:
           tickleInput:
             consumer:
@@ -18,5 +18,5 @@ spring:
         tickleOutput:
           destination: com.canseverayberk.tickle
   redis:
-    hostname: 127.0.0.1
-    port: 6379
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}

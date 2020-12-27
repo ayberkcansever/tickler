@@ -8,8 +8,6 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
-import static com.canseverayberk.tickler.TicklerApplication.I_AM_LEADER;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -19,9 +17,7 @@ public class TickleConsumer {
 
     @StreamListener(KafkaEventStreams.tickleInput)
     public void onTickleMessage(@Payload Tickle tickle) {
-        if (I_AM_LEADER) {
-            tickleProcessor.process(tickle);
-        }
+        tickleProcessor.process(tickle);
     }
 
 }

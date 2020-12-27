@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static com.canseverayberk.tickler.TicklerApplication.I_AM_LEADER;
 import static com.canseverayberk.tickler.model.Tickle.REDIS_VALUE_SUFFIX;
 
 @Slf4j
@@ -24,9 +25,14 @@ public class ExpirationListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] bytes) {
+        // only the leader should process expired key message
+        if (!I_AM_LEADER) {
+            return;
+        }
         String key = new String(message.getBody());
         Tickle expiredTickle = redisTemplate.opsForValue().get(key.concat(REDIS_VALUE_SUFFIX));
         if (Objects.nonNull(expiredTickle)) {
+            log.info("Tickle expired: {}", expiredTickle);
             kafkaEventStreams.tickleOutput().send(MessageBuilder.withPayload(expiredTickle).build());
         }
     }
