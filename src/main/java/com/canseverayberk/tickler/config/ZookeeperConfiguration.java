@@ -13,7 +13,7 @@ import static com.canseverayberk.tickler.TicklerApplication.I_AM_LEADER;
 
 @Slf4j
 @Configuration
-public class ZookeeperConfig {
+public class ZookeeperConfiguration {
 
     @Bean
     public LeaderInitiatorFactoryBean leaderInitiator(CuratorFramework client) {

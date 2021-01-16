@@ -1,6 +1,7 @@
 package com.canseverayberk.tickler.message;
 
 import com.canseverayberk.tickler.config.KafkaEventStreams;
+import com.canseverayberk.tickler.message.strategy.TickleProcessStrategyFactory;
 import com.canseverayberk.tickler.model.Tickle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TickleConsumer {
 
-    private final TickleProcessor tickleProcessor;
+    private final TickleProcessStrategyFactory tickleProcessStrategyFactory;
 
     @StreamListener(KafkaEventStreams.tickleInput)
     public void onTickleMessage(@Payload Tickle tickle) {
-        tickleProcessor.process(tickle);
+        tickleProcessStrategyFactory.getProcessor(tickle).process();
     }
 
 }

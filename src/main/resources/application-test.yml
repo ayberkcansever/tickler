@@ -15,12 +15,18 @@ spring:
           tickleInput:
             consumer:
               startOffset: latest
+          callbackInput:
+            consumer:
+              startOffset: latest
       bindings:
         tickleInput:
           group: tickle-group
           destination: com.canseverayberk.tickle
         tickleOutput:
           destination: com.canseverayberk.tickle
+        callbackInput:
+          group: callback-group
+          destination: tickle.integration.test
   redis:
     hostname: 127.0.0.1
     port: 6379

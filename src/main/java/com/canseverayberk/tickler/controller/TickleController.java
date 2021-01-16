@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +24,7 @@ public class TickleController {
     private final RedisTemplate<String, Tickle> redisTemplate;
 
     @PostMapping
-    public void tickle(@RequestBody Tickle tickle) {
+    public void tickle(@Valid @RequestBody Tickle tickle) {
         log.info("Tickle requested: {}", tickle);
         String messageUUID = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(messageUUID, tickle, tickle.getTtl(), TimeUnit.SECONDS);

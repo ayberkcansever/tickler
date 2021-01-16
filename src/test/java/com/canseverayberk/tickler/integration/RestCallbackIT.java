@@ -23,7 +23,7 @@ import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-public class CallbackIT extends AbstractIT {
+public class RestCallbackIT extends AbstractIT {
 
     @Test
     void should_call_callback_url_when_tickle_expires() throws InterruptedException, JsonProcessingException {
