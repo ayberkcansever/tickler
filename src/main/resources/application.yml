@@ -10,15 +10,20 @@ spring:
           auto-create-topics: false
           brokers: ${BROKER_HOST:127.0.0.1}:${BROKER_PORT:9092}
         bindings:
-          tickleInput:
+          tickleProcessInput:
+            consumer:
+              startOffset: latest
+          tickleRequestInput:
             consumer:
               startOffset: latest
       bindings:
-        tickleInput:
+        tickleProcessInput:
           group: tickle-group
-          destination: com.canseverayberk.tickle
-        tickleOutput:
-          destination: com.canseverayberk.tickle
+          destination: tickle.process
+        tickleProcessOutput:
+          destination: tickle.process
+        tickleRequestInput:
+          destination: tickle.request
   redis:
     host: ${REDIS_HOST:127.0.0.1}
     port: ${REDIS_PORT:6379}

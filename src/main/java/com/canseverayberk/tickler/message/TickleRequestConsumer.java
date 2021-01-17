@@ -12,13 +12,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TickleConsumer {
+public class TickleRequestConsumer {
 
     private final TickleProcessStrategyFactory tickleProcessStrategyFactory;
 
-    @StreamListener(KafkaEventStreams.tickleProcessInput)
+    @StreamListener(KafkaEventStreams.tickleRequestInput)
     public void onTickleMessage(@Payload Tickle tickle) {
-        tickleProcessStrategyFactory.getProcessor(tickle).process();
+        if (tickle.valid()) {
+            tickleProcessStrategyFactory.getProcessor(tickle).process();
+        } else {
+            log.warn("Invalid tickle request consumed: {}", tickle);
+        }
     }
 
 }

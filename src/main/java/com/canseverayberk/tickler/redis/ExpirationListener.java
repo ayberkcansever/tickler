@@ -33,7 +33,7 @@ public class ExpirationListener implements MessageListener {
         Tickle expiredTickle = redisTemplate.opsForValue().get(key.concat(REDIS_VALUE_SUFFIX));
         if (Objects.nonNull(expiredTickle)) {
             log.info("Tickle expired: {}", expiredTickle);
-            kafkaEventStreams.tickleOutput().send(MessageBuilder.withPayload(expiredTickle).build());
+            kafkaEventStreams.tickleProcessOutput().send(MessageBuilder.withPayload(expiredTickle).build());
         }
     }
 }

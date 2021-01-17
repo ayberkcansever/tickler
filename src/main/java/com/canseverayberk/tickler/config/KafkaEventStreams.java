@@ -6,12 +6,15 @@ import org.springframework.messaging.MessageChannel;
 
 public interface KafkaEventStreams {
 
-    String tickleInput = "tickleInput";
+    String tickleRequestInput = "tickleRequestInput";
+    String tickleProcessInput = "tickleProcessInput";
 
     @Input
-    MessageChannel tickleInput();
+    MessageChannel tickleProcessInput();
 
     @Output
-    MessageChannel tickleOutput();
+    MessageChannel tickleProcessOutput();
 
+    @Input
+    MessageChannel tickleRequestInput();
 }

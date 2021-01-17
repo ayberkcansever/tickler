@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.integration.kafka;
+package com.canseverayberk.tickler.kafka;
 
 import com.canseverayberk.tickler.config.ITKafkaEventStreams;
 import org.springframework.cloud.stream.annotation.StreamListener;
