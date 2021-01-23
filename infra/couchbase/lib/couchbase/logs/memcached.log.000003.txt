@@ -7391,3 +7391,4 @@
 2021-01-23T18:01:09.017144+00:00 INFO (metadata) EventuallyPersistentEngine::handleTrafficControlCmd() Data traffic to persistence engine is enabled
 2021-01-23T18:01:15.218735+00:00 INFO 73: Client {"ip":"127.0.0.1","port":35293} authenticated as <ud>@ns_server</ud>
 2021-01-23T18:01:15.220399+00:00 INFO 73: HELO [regular] [ {"ip":"127.0.0.1","port":35293} - {"ip":"127.0.0.1","port":11209} (<ud>@ns_server</ud>) ]
+2021-01-23T18:02:35.453366+00:00 WARNING (metadata) Slow runtime for 'Adjusting hash table sizes.' on thread nonIO_worker_0: 10 ms
