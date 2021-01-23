@@ -1,5 +1,5 @@
 server:
-  port: 19090
+  port: 9090
 spring:
   cloud:
     zookeeper:
@@ -43,4 +43,4 @@ couchbase:
   bucketName: source
 
 expiry:
-  background: redis
+  background: couchbase

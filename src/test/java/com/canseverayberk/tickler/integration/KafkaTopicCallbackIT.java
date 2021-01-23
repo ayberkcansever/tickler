@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.integration.redis;
+package com.canseverayberk.tickler.integration;
 
 import com.canseverayberk.tickler.AbstractIT;
 import com.canseverayberk.tickler.configuration.KafkaEventStreams;
@@ -43,13 +43,13 @@ public class KafkaTopicCallbackIT extends AbstractIT {
         // when
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        testRestTemplate.exchange("http://localhost:19090/api/v1/tickle",
+        testRestTemplate.exchange("http://localhost:9090/api/v1/tickle",
                 HttpMethod.POST,
                 new HttpEntity<>(tickle, headers),
                 Void.class);
 
         // then
-        assertThat(kafkaCallbackConsumer.getLatch().await(10, TimeUnit.SECONDS)).isTrue();
+        assertThat(kafkaCallbackConsumer.getLatch().await(30, TimeUnit.SECONDS)).isTrue();
         assertThat(kafkaCallbackConsumer.getPayload()).isEqualTo(objectMapper.writeValueAsString(payload));
     }
 
@@ -68,7 +68,7 @@ public class KafkaTopicCallbackIT extends AbstractIT {
         kafkaEventStreams.tickleRequestInput().send(MessageBuilder.withPayload(tickle).build());
 
         // then
-        assertThat(kafkaCallbackConsumer.getLatch().await(10, TimeUnit.SECONDS)).isTrue();
+        assertThat(kafkaCallbackConsumer.getLatch().await(30, TimeUnit.SECONDS)).isTrue();
         assertThat(kafkaCallbackConsumer.getPayload()).isEqualTo(objectMapper.writeValueAsString(payload));
     }
 

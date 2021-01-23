@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.integration.redis;
+package com.canseverayberk.tickler.integration;
 
 import com.canseverayberk.tickler.AbstractIT;
 import com.canseverayberk.tickler.configuration.KafkaEventStreams;
@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -69,13 +70,13 @@ public class RestCallbackIT extends AbstractIT {
         // when
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        testRestTemplate.exchange("http://localhost:19090/api/v1/tickle",
+        testRestTemplate.exchange("http://localhost:9090/api/v1/tickle",
                 HttpMethod.POST,
                 new HttpEntity<>(tickle, headers),
                 Void.class);
 
         // then
-        assertThat(countDownLatch.await(10, TimeUnit.SECONDS)).isTrue();
+        assertThat(countDownLatch.await(30, TimeUnit.SECONDS)).isTrue();
         assertThat(mockRestCallback.isRequestPayloadExpected()).isTrue();
     }
 
@@ -100,7 +101,7 @@ public class RestCallbackIT extends AbstractIT {
         kafkaEventStreams.tickleRequestInput().send(MessageBuilder.withPayload(tickle).build());
 
         // then
-        assertThat(countDownLatch.await(10, TimeUnit.SECONDS)).isTrue();
+        assertThat(countDownLatch.await(30, TimeUnit.SECONDS)).isTrue();
         assertThat(mockRestCallback.isRequestPayloadExpected()).isTrue();
     }
 
