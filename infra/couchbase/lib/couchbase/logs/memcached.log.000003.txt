@@ -8135,3 +8135,8 @@
 2021-01-23T18:18:22.991170+00:00 WARNING (metadata) Slow runtime for 'Running a flusher loop: shard 3' on thread writer_worker_0: 1024 ms
 2021-01-23T18:18:22.997845+00:00 WARNING (metadata) Slow runtime for 'Running a flusher loop: shard 2' on thread writer_worker_2: 1028 ms
 2021-01-23T18:18:22.999036+00:00 WARNING (metadata) Slow runtime for 'Running a flusher loop: shard 0' on thread writer_worker_3: 1026 ms
+2021-01-23T18:20:01.936563+00:00 WARNING (source) Slow runtime for 'Updating stat snapshot on disk' on thread writer_worker_1: 339 ms
+2021-01-23T18:20:38.110378+00:00 WARNING (source) Slow runtime for 'Paging expired items.' on thread nonIO_worker_0: 202 ms
+2021-01-23T18:20:41.515337+00:00 WARNING (metadata) Slow runtime for 'Paging expired items.' on thread nonIO_worker_0: 216 ms
+2021-01-23T18:22:40.581858+00:00 INFO 61: Client {"ip":"127.0.0.1","port":42549} authenticated as <ud>@ns_server</ud>
+2021-01-23T18:22:40.583435+00:00 INFO 61: HELO [regular] [ {"ip":"127.0.0.1","port":42549} - {"ip":"127.0.0.1","port":11209} (<ud>@ns_server</ud>) ]
