@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.message;
+package com.canseverayberk.tickler.request.kafka;
 
 import com.canseverayberk.tickler.configuration.KafkaEventStreams;
 import com.canseverayberk.tickler.message.strategy.TickleProcessStrategyFactory;

@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.controller.error;
+package com.canseverayberk.tickler.request.rest.error;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;

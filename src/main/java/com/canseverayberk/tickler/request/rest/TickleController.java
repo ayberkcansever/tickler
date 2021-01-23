@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.controller;
+package com.canseverayberk.tickler.request.rest;
 
 import com.canseverayberk.tickler.expiry.TickleSaver;
 import com.canseverayberk.tickler.model.Tickle;

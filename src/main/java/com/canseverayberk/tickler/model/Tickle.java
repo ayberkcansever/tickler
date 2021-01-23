@@ -1,6 +1,6 @@
 package com.canseverayberk.tickler.model;
 
-import com.canseverayberk.tickler.controller.validation.ValidTickleCallback;
+import com.canseverayberk.tickler.request.rest.validation.ValidTickleCallback;
 import lombok.*;
 
 import javax.validation.constraints.Min;

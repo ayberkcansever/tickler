@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.controller.validation;
+package com.canseverayberk.tickler.request.rest.validation;
 
 import com.canseverayberk.tickler.model.Tickle;
 

@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.controller.validation;
+package com.canseverayberk.tickler.request.rest.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

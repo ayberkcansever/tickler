@@ -35,3 +35,12 @@ spring:
   redis:
     hostname: 127.0.0.1
     port: 6379
+
+couchbase:
+  host: 127.0.0.1
+  username: Administrator
+  password: 123456
+  bucketName: source
+
+expiry:
+  background: redis
