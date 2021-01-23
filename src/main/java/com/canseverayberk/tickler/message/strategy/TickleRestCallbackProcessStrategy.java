@@ -30,6 +30,6 @@ public class TickleRestCallbackProcessStrategy implements TickleProcessStrategy 
                 HttpMethod.POST,
                 new HttpEntity<>(tickle.getPayload(), headers),
                 Void.class);
-        log.info("Callback url called for tickle: {}", tickle);
+        log.info("Rest callback url called for tickle: {}", tickle);
     }
 }

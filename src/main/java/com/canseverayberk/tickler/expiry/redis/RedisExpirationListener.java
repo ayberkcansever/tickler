@@ -1,13 +1,14 @@
-package com.canseverayberk.tickler.redis;
+package com.canseverayberk.tickler.expiry.redis;
 
-import com.canseverayberk.tickler.config.KafkaEventStreams;
+import com.canseverayberk.tickler.configuration.RedisConfiguration;
+import com.canseverayberk.tickler.expiry.TickleExpirationHandler;
 import com.canseverayberk.tickler.model.Tickle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -17,11 +18,11 @@ import static com.canseverayberk.tickler.model.Tickle.REDIS_VALUE_SUFFIX;
 
 @Slf4j
 @Component
+@ConditionalOnBean(value = RedisConfiguration.class)
 @RequiredArgsConstructor
-public class ExpirationListener implements MessageListener {
+public class RedisExpirationListener extends TickleExpirationHandler implements MessageListener {
 
     private final RedisTemplate<String, Tickle> redisTemplate;
-    private final KafkaEventStreams kafkaEventStreams;
 
     @Override
     public void onMessage(Message message, byte[] bytes) {
@@ -33,7 +34,8 @@ public class ExpirationListener implements MessageListener {
         Tickle expiredTickle = redisTemplate.opsForValue().get(key.concat(REDIS_VALUE_SUFFIX));
         if (Objects.nonNull(expiredTickle)) {
             log.info("Tickle expired: {}", expiredTickle);
-            kafkaEventStreams.tickleProcessOutput().send(MessageBuilder.withPayload(expiredTickle).build());
+            handleExpiredTickle(expiredTickle);
         }
     }
+
 }

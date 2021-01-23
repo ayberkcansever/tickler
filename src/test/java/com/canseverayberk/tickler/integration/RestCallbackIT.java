@@ -1,7 +1,7 @@
 package com.canseverayberk.tickler.integration;
 
 import com.canseverayberk.tickler.AbstractIT;
-import com.canseverayberk.tickler.config.KafkaEventStreams;
+import com.canseverayberk.tickler.configuration.KafkaEventStreams;
 import com.canseverayberk.tickler.model.CallbackPayload;
 import com.canseverayberk.tickler.model.Tickle;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,6 +1,6 @@
 package com.canseverayberk.tickler.message;
 
-import com.canseverayberk.tickler.config.KafkaEventStreams;
+import com.canseverayberk.tickler.configuration.KafkaEventStreams;
 import com.canseverayberk.tickler.message.strategy.TickleProcessStrategyFactory;
 import com.canseverayberk.tickler.model.Tickle;
 import lombok.RequiredArgsConstructor;

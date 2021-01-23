@@ -1,6 +1,6 @@
-package com.canseverayberk.tickler.controller;
+package com.canseverayberk.tickler.expiry.couchbase;
 
-import com.canseverayberk.tickler.expiry.TickleSaver;
+import com.canseverayberk.tickler.expiry.TickleExpirationHandler;
 import com.canseverayberk.tickler.model.Tickle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,15 +14,12 @@ import javax.validation.Valid;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/tickle")
-public class TickleController {
+@RequestMapping("/api/v1/tickle/couchbase")
+public class CouchbaseExpirationListener extends TickleExpirationHandler {
 
-    private final TickleSaver tickleSaver;
-
-    @PostMapping
-    public void tickle(@Valid @RequestBody Tickle tickle) {
-        log.info("Tickle requested: {}", tickle);
-        tickleSaver.save(tickle);
+    @PostMapping("/expire")
+    public void tickleExpired(@Valid @RequestBody Tickle tickle) {
+        log.info("Tickle expired: {}", tickle);
+        handleExpiredTickle(tickle);
     }
-
 }

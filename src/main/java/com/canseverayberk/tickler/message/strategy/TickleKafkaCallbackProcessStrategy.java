@@ -21,5 +21,6 @@ public class TickleKafkaCallbackProcessStrategy implements TickleProcessStrategy
     @Override
     public void process() {
         kafkaTemplate.send(tickle.getKafkaCallbackTopic(), tickle.getPayload());
+        log.info("Tickle sent to kafka callback topic: {}", tickle);
     }
 }

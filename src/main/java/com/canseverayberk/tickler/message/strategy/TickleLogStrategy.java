@@ -16,6 +16,6 @@ public class TickleLogStrategy implements TickleProcessStrategy {
 
     @Override
     public void process() {
-
+        log.info("Tickle to be processed: {}", tickle);
     }
 }

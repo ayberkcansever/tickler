@@ -1,10 +1,11 @@
-package com.canseverayberk.tickler.config;
+package com.canseverayberk.tickler.configuration;
 
+import com.canseverayberk.tickler.expiry.redis.RedisExpirationListener;
 import com.canseverayberk.tickler.model.Tickle;
-import com.canseverayberk.tickler.redis.ExpirationListener;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -15,6 +16,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
+@ConditionalOnProperty(name = "expiry.background", havingValue = "redis")
 public class RedisConfiguration {
 
     private static final String REDIS_KEY_EVENT_EXPIRED = "__keyevent@*__:expired";
@@ -43,10 +45,10 @@ public class RedisConfiguration {
 
     @Bean
     public RedisMessageListenerContainer keyExpirationListenerContainer(RedisConnectionFactory connectionFactory,
-                                                                        ExpirationListener expirationListener) {
+                                                                        RedisExpirationListener redisExpirationListener) {
         RedisMessageListenerContainer listenerContainer = new RedisMessageListenerContainer();
         listenerContainer.setConnectionFactory(connectionFactory);
-        listenerContainer.addMessageListener(expirationListener, new PatternTopic(REDIS_KEY_EVENT_EXPIRED));
+        listenerContainer.addMessageListener(redisExpirationListener, new PatternTopic(REDIS_KEY_EVENT_EXPIRED));
         return listenerContainer;
     }
 

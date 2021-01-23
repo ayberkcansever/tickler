@@ -1,6 +1,6 @@
 package com.canseverayberk.tickler.kafka;
 
-import com.canseverayberk.tickler.config.ITKafkaEventStreams;
+import com.canseverayberk.tickler.configuration.ITKafkaEventStreams;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
 

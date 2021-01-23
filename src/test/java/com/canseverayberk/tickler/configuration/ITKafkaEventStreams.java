@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.config;
+package com.canseverayberk.tickler.configuration;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.MessageChannel;
