@@ -1,4 +1,4 @@
-package com.canseverayberk.tickler.integration;
+package com.canseverayberk.tickler.integration.redis;
 
 import com.canseverayberk.tickler.AbstractIT;
 import com.canseverayberk.tickler.configuration.KafkaEventStreams;
