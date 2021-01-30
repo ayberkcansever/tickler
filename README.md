@@ -5,7 +5,7 @@ Tickler
 -----------------
 Firstly let's define the need for Tickler: 
 
-***I am, as a tickle client application, running in distributed environment and i need an expiring distributed data structure which all of the items in this structure may have different time-to-live values.***
+***I am, as a Tickler client application, running in distributed environment and i need an expiring distributed data structure which all of the items in this structure may have different time-to-live values.***
 
 These expiring items (JSON based) can be called as reminders (tickles) which are composed of a callback url or callback kafka topic, json payload for the callback and a ttl value in seconds.
 
