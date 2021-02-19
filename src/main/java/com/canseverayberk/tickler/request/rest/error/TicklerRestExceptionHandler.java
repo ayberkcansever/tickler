@@ -122,8 +122,9 @@ public class TicklerRestExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleAll() {
+    public ResponseEntity<Object> handleAll(Exception exception) {
         final ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "error occurred");
+        logger.error(exception);
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 

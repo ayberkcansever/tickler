@@ -12,10 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target(TYPE)
 @Retention(RUNTIME)
-@Constraint(validatedBy = { TickleCallbackValidator.class })
-public @interface ValidTickleCallback {
+@Constraint(validatedBy = { TickleValidator.class })
+public @interface ValidTickle {
 
-    String message() default "{invalidTickle.callback.message}";
+    String message() default "";
 
     Class<?>[] groups() default {};
 

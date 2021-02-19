@@ -26,7 +26,7 @@ public class RedisTickleSaver implements TickleSaver {
     public void save(Tickle tickle) {
         String messageUUID = UUID.randomUUID().toString();
         redisTemplate.opsForValue().set(messageUUID, tickle, tickle.getTtl(), TimeUnit.SECONDS);
-        redisTemplate.opsForValue().set(messageUUID.concat(REDIS_VALUE_SUFFIX), tickle, tickle.getTtl() + 20, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(messageUUID.concat(REDIS_VALUE_SUFFIX), tickle, tickle.getPureTtl() + 20, TimeUnit.SECONDS);
         log.info("Tickle saved for expiry: {}", tickle);
     }
 }

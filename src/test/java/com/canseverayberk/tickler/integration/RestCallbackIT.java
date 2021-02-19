@@ -64,7 +64,7 @@ public class RestCallbackIT extends AbstractIT {
         Tickle tickle = Tickle.builder()
                 .payload(payload)
                 .restCallbackUrl("http://localhost:1080/callback")
-                .ttl(3)
+                .ttl(3L)
                 .build();
 
         // when
@@ -94,7 +94,7 @@ public class RestCallbackIT extends AbstractIT {
         Tickle tickle = Tickle.builder()
                 .payload(payload)
                 .restCallbackUrl("http://localhost:1080/callback")
-                .ttl(3)
+                .ttl(3L)
                 .build();
 
         // when

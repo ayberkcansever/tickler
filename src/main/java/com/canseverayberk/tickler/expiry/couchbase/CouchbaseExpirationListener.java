@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -18,7 +16,7 @@ import javax.validation.Valid;
 public class CouchbaseExpirationListener extends TickleExpirationHandler {
 
     @PostMapping("/expire")
-    public void tickleExpired(@Valid @RequestBody Tickle tickle) {
+    public void tickleExpired(@RequestBody Tickle tickle) {
         log.info("Tickle expired: {}", tickle);
         handleExpiredTickle(tickle);
     }

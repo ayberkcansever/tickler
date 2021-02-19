@@ -23,10 +23,14 @@ public class CouchbaseTickleSaver implements TickleSaver {
 
     @Override
     public void save(Tickle tickle) {
-        String messageUUID = UUID.randomUUID().toString();
-        UpsertOptions upsertOptions = UpsertOptions.upsertOptions()
-                .expiry(Duration.ofSeconds(tickle.getTtl()));
-        bucket.defaultCollection().upsert(messageUUID, tickle, upsertOptions);
-        log.info("Tickle saved for expiry: {}", tickle);
+        try {
+            String messageUUID = UUID.randomUUID().toString();
+            UpsertOptions upsertOptions = UpsertOptions.upsertOptions()
+                    .expiry(Duration.ofSeconds(tickle.getPureTtl()));
+            bucket.defaultCollection().upsert(messageUUID, tickle, upsertOptions);
+            log.info("Tickle saved for expiry: {}", tickle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

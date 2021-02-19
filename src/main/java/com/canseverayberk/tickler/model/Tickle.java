@@ -1,11 +1,15 @@
 package com.canseverayberk.tickler.model;
 
-import com.canseverayberk.tickler.request.rest.validation.ValidTickleCallback;
+import com.canseverayberk.tickler.request.rest.validation.ValidTickle;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Getter
@@ -14,26 +18,34 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@ValidTickleCallback
+@ValidTickle
 public class Tickle {
 
     public static final String REDIS_VALUE_SUFFIX = "_value";
 
-    @NotEmpty(message = "Payload must be provided!")
     private String payload;
-
     private String restCallbackUrl;
     private String kafkaCallbackTopic;
+    private Long ttl;
 
-    @NotNull(message = "time-to-live value must be provided!")
-    @Min(value = 1, message = "time-to-live value must be greater than 1!")
-    private Integer ttl;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime expirationDate;
+
+    public Long getPureTtl() {
+        return Objects.isNull(ttl) ? LocalDateTime.now().until(expirationDate, ChronoUnit.SECONDS) : ttl;
+    }
 
     public boolean valid() {
-        return callbackValid() && Objects.nonNull(payload);
+        return Objects.nonNull(payload) && callbackValid() && expirationValid();
     }
 
     private boolean callbackValid() {
         return Objects.nonNull(restCallbackUrl) || Objects.nonNull(kafkaCallbackTopic);
+    }
+
+    private boolean expirationValid() {
+        return Objects.nonNull(ttl) || Objects.nonNull(expirationDate);
     }
 }

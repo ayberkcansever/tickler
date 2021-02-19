@@ -37,7 +37,7 @@ public class KafkaTopicCallbackIT extends AbstractIT {
         Tickle tickle = Tickle.builder()
                 .payload(payload)
                 .kafkaCallbackTopic("tickle.callback.integration.test")
-                .ttl(3)
+                .ttl(3L)
                 .build();
 
         // when
@@ -61,7 +61,7 @@ public class KafkaTopicCallbackIT extends AbstractIT {
         Tickle tickle = Tickle.builder()
                 .payload(payload)
                 .kafkaCallbackTopic("tickle.callback.integration.test")
-                .ttl(3)
+                .ttl(3L)
                 .build();
 
         // when
