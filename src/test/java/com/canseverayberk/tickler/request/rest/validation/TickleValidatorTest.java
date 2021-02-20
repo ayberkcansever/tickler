@@ -33,14 +33,15 @@ class TickleValidatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            ",restCallback,,1,,{invalidTickle.payload.message}",
-            "payload,,,1,,{invalidTickle.callback.message}",
-            "payload,restCallback,,,,{invalidTickle.expiration.message}",
-            "payload,restCallback,,-2,,{invalidTickle.ttl.message}",
-            "payload,restCallback,,,2000-01-01T00:00:00,{invalidTickle.expirationDate.message}"
+            ",restCallback,,1,,false,{invalidTickle.payload.message}",
+            "payload,restCallback,,,,false,{invalidTickle.expiration.message}",
+            "payload,restCallback,,1,2000-01-01T00:00:00,false,{invalidTickle.expiration.message}",
+            "payload,restCallback,,-2,,false,{invalidTickle.ttl.message}",
+            "payload,restCallback,,,2000-01-01T00:00:00,false,{invalidTickle.expirationDate.message}",
+            "payload,restCallback,,1,,true,"
     })
     void should_invalidate_tickle(String payload, String restCallback, String kafkaCallbackTopic,
-                                  Long ttl, LocalDateTime expirationDate, String errMsg) {
+                                  Long ttl, LocalDateTime expirationDate, String isValid, String errMsg) {
         // given
         Tickle tickle = Tickle.builder()
                 .payload(payload)
@@ -55,11 +56,18 @@ class TickleValidatorTest {
         boolean valid = tickleValidator.isValid(tickle, constraintValidatorContext);
 
         // then
-        assertThat(valid).isFalse();
+        Boolean expectedValid = Boolean.valueOf(isValid);
+        assertThat(valid).isEqualTo(expectedValid);
+
         verify(constraintValidatorContext, times(1)).disableDefaultConstraintViolation();
-        verify(constraintValidatorContext).buildConstraintViolationWithTemplate(messageCaptor.capture());
-        verify(constraintViolationBuilder, times(1)).addConstraintViolation();
-        assertThat(messageCaptor.getValue()).isEqualTo(errMsg);
+
+        if(!expectedValid) {
+            verify(constraintValidatorContext).buildConstraintViolationWithTemplate(messageCaptor.capture());
+            verify(constraintViolationBuilder, times(1)).addConstraintViolation();
+            assertThat(messageCaptor.getValue()).isEqualTo(errMsg);
+        } else {
+            verifyNoInteractions(constraintValidatorContext.buildConstraintViolationWithTemplate(any()));
+        }
     }
 
 }

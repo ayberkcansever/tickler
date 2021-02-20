@@ -17,11 +17,6 @@ public class TickleValidator implements ConstraintValidator<ValidTickle, Tickle>
             return false;
         }
 
-        if(Objects.isNull(tickle.getRestCallbackUrl()) && Objects.isNull(tickle.getKafkaCallbackTopic())) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("{invalidTickle.callback.message}").addConstraintViolation();
-            return false;
-        }
-
         if((Objects.isNull(tickle.getTtl()) && Objects.isNull(tickle.getExpirationDate()))
              || Objects.nonNull(tickle.getTtl()) && Objects.nonNull(tickle.getExpirationDate())) {
             constraintValidatorContext.buildConstraintViolationWithTemplate("{invalidTickle.expiration.message}").addConstraintViolation();
