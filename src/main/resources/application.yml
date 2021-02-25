@@ -1,5 +1,12 @@
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
+management:
+  server:
+    port: ${MANAGEMENT_SERVER_PORT:9091}
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -29,10 +36,10 @@ spring:
     port: ${REDIS_PORT:6379}
 
 couchbase:
-  host: 127.0.0.1
-  username: Administrator
-  password: 123456
-  bucketName: source
+  host: ${COUCHBASE_HOST:127.0.0.1}
+  username: ${COUCHBASE_USER:Administrator}
+  password: ${COUCHBASE_PASS:123456}
+  bucketName: ${COUCHBASE_BUCKET:source}
 
 expiry:
-  background: couchbase
+  background: ${EXPIRY_BACKGROUND:couchbase}
