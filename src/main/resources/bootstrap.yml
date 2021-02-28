@@ -1,6 +1,8 @@
 spring:
   cloud:
     zookeeper:
+      enabled: ${ZOOKEEPER_ENABLED:false}
       discovery:
-        enabled: true
+        register: ${ZOOKEEPER_ENABLED:false}
+        enabled: ${ZOOKEEPER_ENABLED:false}
       connect-string: ${ZOOKEEPER_HOST:127.0.0.1}:${ZOOKEEPER_PORT:2181}
